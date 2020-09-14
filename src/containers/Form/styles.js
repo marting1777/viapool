@@ -10,3 +10,9 @@ export const StyledForm = styled.form`
     width: 600px;
   }
 `;
+
+export const SpinnerContainer = styled.div`
+  display: block;
+  margin: 0 auto;
+  width: 100px;
+`;

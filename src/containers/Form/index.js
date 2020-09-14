@@ -5,7 +5,7 @@ import Label from "../../components/Label";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Spinner from "../../components/Spinner";
-import { StyledForm } from "./styles";
+import { StyledForm, SpinnerContainer } from "./styles";
 import { initNewDriver } from "../../store/actions/newDriverActions";
 
 function Form({ loading, onRegisterNewDriver }) {
@@ -202,15 +202,9 @@ function Form({ loading, onRegisterNewDriver }) {
           <Button btnLabel="Enviar" btnType="submit" disabled={btnState} />
         </>
       ) : (
-        <div
-          style={{
-            display: "block",
-            margin: "0 auto",
-            width: "100px",
-          }}
-        >
+        <SpinnerContainer>
           <Spinner />
-        </div>
+        </SpinnerContainer>
       )}
       {!loading && successMessage ? (
         <p style={{ color: "green", fontSize: "16px", textAlign: "center" }}>
