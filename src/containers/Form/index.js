@@ -8,9 +8,9 @@ import Spinner from "../../components/Spinner";
 import { StyledForm } from "./styles";
 import { initNewDriver } from "../../store/actions/newDriverActions";
 
-function Form({ onRegisterNewDriver }) {
-  const [loading, setLoading] = useState(false);
+function Form({ loading, onRegisterNewDriver }) {
   const [btnState, setBtnState] = useState(true);
+  const [successMessage, setSuccessMessage] = useState(false);
   const [controls, setControls] = useState({
     name: {
       elementType: "input",
@@ -171,6 +171,7 @@ function Form({ onRegisterNewDriver }) {
       version: controls.version.value,
       year: controls.year.value,
     });
+    setSuccessMessage(true);
   };
 
   let formFields = formElementsArray.map((formElement) => {
@@ -201,11 +202,30 @@ function Form({ onRegisterNewDriver }) {
           <Button btnLabel="Enviar" btnType="submit" disabled={btnState} />
         </>
       ) : (
-        <Spinner />
+        <div
+          style={{
+            display: "block",
+            margin: "0 auto",
+            width: "100px",
+          }}
+        >
+          <Spinner />
+        </div>
       )}
+      {!loading && successMessage ? (
+        <p style={{ color: "green", fontSize: "16px", textAlign: "center" }}>
+          Se ha solicitado un nuevo conductor con exito!
+        </p>
+      ) : null}
     </StyledForm>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    loading: state.newDriver.loading,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -213,4 +233,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
